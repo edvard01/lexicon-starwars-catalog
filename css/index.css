@@ -1,0 +1,108 @@
+@font-face {
+  font-family: Ropa Sans;
+  src: url(assets/Ropa_Sans/RopaSans-Regular.ttf);
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url(assets/Roboto/Roboto-Light.ttf);
+}
+
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  max-width: 1440px;
+  margin: auto;
+}
+
+header {
+  height: 347px;
+  background-image: url(assets/a3fae2ef0c636e73f74801f44296aa74.jpg);
+  background-size: cover;
+}
+
+header .content {
+  display: flex;
+  align-items: center;
+  width: 40%;
+  height: 347px;
+  margin-left: 67px;
+}
+
+header .content h1 {
+  color: #ffd600;
+  margin: 0;
+  font-family: Ropa Sans;
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 69px;
+  letter-spacing: 0.15em;
+  text-align: left;
+}
+
+main {
+  height: 677px;
+
+  display: flex;
+  flex-direction: row;
+
+  justify-content: center;
+  gap: 125px;
+}
+
+main .card .card-header {
+  position: relative;
+  top: -43px;
+}
+
+main .card .card-header {
+  height: 77px;
+  width: 484px;
+  background-color: #535556;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main .card .card-header h3 {
+  color: #ffd600;
+  font-family: Ropa Sans;
+  font-size: 30px;
+  line-height: 32.16px;
+  margin: 0px;
+}
+
+main .card .card-body ul {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: -43px;
+}
+
+main .card .card-body ul li {
+  background: #8e8e8e;
+  list-style-type: none;
+  width: 484px;
+  height: 55px;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+}
+
+main .card .card-body ul li:nth-child(odd) {
+  background: #e1dede;
+}
+
+main .card .card-body ul li p {
+  font-size: 24px;
+  font-family: Roboto;
+  margin-left: 20px;
+}
