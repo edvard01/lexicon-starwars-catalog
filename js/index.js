@@ -1,40 +1,68 @@
-async function getAllCharacters() {
+let currentPage = 1;
+let url = "https://swapi.dev/api/people";
+let nextPageUrl = null;
+let lastPageUrl = null;
+
+async function getAllCharacters(url) {
   try {
-    const response = await fetch("https://swapi.dev/api/people");
+    const response = await fetch(url);
     const data = await response.json();
 
-    return data;
+    let pageNr = getPageAmount(data.count);
+    displayCharacterCard(data, pageNr);
+    nextPageUrl = data.next;
+    lastPageUrl = data.previous;
+    console.log(lastPageUrl);
   } catch (error) {
     console.error("Error:", error);
   }
 }
 
-async function characterCount() {
-  const data = await getAllCharacters();
-  return data.count;
+async function displayCharacterCard(data, pageNr) {
+  const list = document.getElementById("character-list");
+  const paginator = document.getElementById("nav-text");
+  const characters = await data.results;
+  list.innerHTML = "";
+  for (let i = 0; i < characters.length; i++) {
+    list.innerHTML += `<li><p>${characters[i].name}</p></li>`;
+  }
+  paginator.innerHTML = `1/${pageNr}`;
 }
 
-characterCount().then((count) => {
-  console.log(count);
-});
-
-async function getRandomCharacters(value, total) {
-  const characterArray = [];
-  const rndArr = [];
-  let rnd = 0;
-  for (let i = 0; i < value; i++) {
-    rnd = getRndNumber(total);
-    while (rndArr.indexOf(rnd) === -1) {
-      rnd = getRndNumber(total);
-    }
-    rndArr.push(rnd);
+function getPageAmount(total) {
+  let charCount = total;
+  let leftover = total % 10;
+  console.log(leftover);
+  let temp = 0;
+  if (leftover !== 0) {
+    temp = 10 - leftover;
+    charCount += temp;
   }
 
-  console.log(rndArr);
+  return charCount / 10;
 }
 
-function getRndNumber(max) {
-  return Math.floor(Math.random() * max);
+getAllCharacters(url);
+
+const nextPageBtn = document.querySelector("#fwd");
+const lastPageBtn = document.querySelector("#back");
+
+nextPageBtn.addEventListener("click", (e) => {
+  getNextPage();
+});
+
+lastPageBtn.addEventListener("click", (e) => {
+  getLastPage();
+});
+
+function getNextPage() {
+  if (nextPageUrl !== null) {
+    getAllCharacters(nextPageUrl);
+  }
 }
 
-getRandomCharacters(8, 82);
+function getLastPage() {
+  if (lastPageUrl !== null) {
+    getAllCharacters(lastPageUrl);
+  }
+}
