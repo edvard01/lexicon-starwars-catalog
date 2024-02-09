@@ -26,7 +26,7 @@ async function displayCharacterCard(data, pageNr) {
   for (let i = 0; i < characters.length; i++) {
     list.innerHTML += `<li><p>${characters[i].name}</p></li>`;
   }
-  paginator.innerHTML = `1/${pageNr}`;
+  paginator.innerHTML = `${currentPage}/${pageNr}`;
 }
 
 function getPageAmount(total) {
@@ -58,11 +58,13 @@ lastPageBtn.addEventListener("click", (e) => {
 function getNextPage() {
   if (nextPageUrl !== null) {
     getAllCharacters(nextPageUrl);
+    currentPage++;
   }
 }
 
 function getLastPage() {
   if (lastPageUrl !== null) {
     getAllCharacters(lastPageUrl);
+    currentPage--;
   }
 }
