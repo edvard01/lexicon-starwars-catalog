@@ -8,6 +8,11 @@
   src: url(assets/Roboto/Roboto-Light.ttf);
 }
 
+@font-face {
+  font-family: Roboto-regular;
+  src: url(assets/Roboto/Roboto-Regular.ttf);
+}
+
 html {
   margin: 0;
   padding: 0;
@@ -154,26 +159,46 @@ main .card .details-card-body {
   top: -43px;
 }
 
-main .card .details-card-body .body-section-1 {
+main .card .details-card-body .card-body-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+main .card .details-card-body .item-1 {
   background-color: #c4c4c4;
   height: 273.5px;
   width: 484px;
 }
 
-main .card .details-card-body .body-section-1 h5 {
+main .card .details-card-body .card-body-item h5 {
   margin: 0;
   padding: 0;
-  font-size: 30px;
   font-family: Roboto;
-  margin-left: 20px;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 35px;
+  letter-spacing: 0.2em;
+  text-align: left;
+  margin-left: 21px;
 }
 
-main .card .details-card-body .body-section-1 ul {
+main .card .details-card-body .card-body-item ul {
   margin: 0;
   padding: 0;
 }
 
-main .card .details-card-body .body-section-2 {
+main .card .details-card-body .card-body-item ul p {
+  font-family: Roboto-regular;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 12px;
+  letter-spacing: 0.2em;
+  text-align: left;
+  margin-left: 21px;
+}
+
+main .card .details-card-body .item-2 {
   background-color: #8e8e8e;
   height: 273.5px;
   width: 484px;

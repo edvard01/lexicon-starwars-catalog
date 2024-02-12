@@ -12,7 +12,29 @@ async function getAllCharacters(url) {
     displayCharacterCard(data, pageNr);
     nextPageUrl = data.next;
     lastPageUrl = data.previous;
-    console.log(lastPageUrl);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+async function getDetails(url) {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    displayDetailsCard(data);
+    getPlanet(data.homeworld);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+async function getPlanet(url) {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    displayPlanet(data);
   } catch (error) {
     console.error("Error:", error);
   }
@@ -43,6 +65,21 @@ function displayDetailsCard(data) {
   detailsList.innerHTML += `<p>Eye color: ${data.eye_color}</p>`;
   detailsList.innerHTML += `<p>Birth year: ${data.birth_year}</p>`;
   detailsList.innerHTML += `<p>Gender: ${data.gender}</p>`;
+}
+
+function displayPlanet(data) {
+  const name = document.getElementById("planet-name");
+  const planetList = document.getElementById("planet-details");
+
+  planetList.innerHTML = "";
+
+  name.innerHTML = data.name;
+  planetList.innerHTML += `<p>Rotation period: ${data.rotation_period}</p>`;
+  planetList.innerHTML += `<p>Orbital period: ${data.orbital_period}</p>`;
+  planetList.innerHTML += `<p>Diameter: ${data.diameter}</p>`;
+  planetList.innerHTML += `<p>Climate: ${data.climate}</p>`;
+  planetList.innerHTML += `<p>Gravity: ${data.gravity}</p>`;
+  planetList.innerHTML += `<p>Terrain: ${data.terrain}</p>`;
 }
 
 function getPageAmount(total) {
@@ -94,16 +131,5 @@ function getLastPage() {
   if (lastPageUrl !== null) {
     getAllCharacters(lastPageUrl);
     currentPage--;
-  }
-}
-
-async function getDetails(url) {
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-
-    displayDetailsCard(data);
-  } catch (error) {
-    console.error("Error:", error);
   }
 }
