@@ -24,9 +24,25 @@ async function displayCharacterCard(data, pageNr) {
   const characters = await data.results;
   list.innerHTML = "";
   for (let i = 0; i < characters.length; i++) {
-    list.innerHTML += `<li><p>${characters[i].name}</p></li>`;
+    list.innerHTML += `<li id="${characters[i].url}"><p>${characters[i].name}</p></li>`;
   }
   paginator.innerHTML = `${currentPage}/${pageNr}`;
+}
+
+function displayDetailsCard(data) {
+  const name = document.getElementById("name");
+  const detailsList = document.getElementById("character-details");
+
+  detailsList.innerHTML = "";
+
+  name.innerHTML = data.name;
+  detailsList.innerHTML += `<p>Height: ${data.height}cm</p>`;
+  detailsList.innerHTML += `<p>Mass: ${data.mass}kg</p>`;
+  detailsList.innerHTML += `<p>Hair color: ${data.hair_color}</p>`;
+  detailsList.innerHTML += `<p>Skin color: ${data.skin_color}</p>`;
+  detailsList.innerHTML += `<p>Eye color: ${data.eye_color}</p>`;
+  detailsList.innerHTML += `<p>Birth year: ${data.birth_year}</p>`;
+  detailsList.innerHTML += `<p>Gender: ${data.gender}</p>`;
 }
 
 function getPageAmount(total) {
@@ -46,6 +62,7 @@ getAllCharacters(url);
 
 const nextPageBtn = document.querySelector("#fwd");
 const lastPageBtn = document.querySelector("#back");
+const characterList = document.querySelector("#character-list");
 
 nextPageBtn.addEventListener("click", (e) => {
   getNextPage();
@@ -53,6 +70,17 @@ nextPageBtn.addEventListener("click", (e) => {
 
 lastPageBtn.addEventListener("click", (e) => {
   getLastPage();
+});
+
+characterList.addEventListener("click", (e) => {
+  let target;
+  if (e.target.tagName === "P") {
+    target = e.target.parentNode;
+  } else {
+    target = e.target;
+  }
+  let url = target.id;
+  getDetails(url);
 });
 
 function getNextPage() {
@@ -66,5 +94,16 @@ function getLastPage() {
   if (lastPageUrl !== null) {
     getAllCharacters(lastPageUrl);
     currentPage--;
+  }
+}
+
+async function getDetails(url) {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    displayDetailsCard(data);
+  } catch (error) {
+    console.error("Error:", error);
   }
 }
