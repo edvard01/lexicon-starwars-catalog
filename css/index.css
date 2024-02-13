@@ -256,3 +256,60 @@ main .card .details-card-body .item-2 {
     transform: translateY(-100%);
   }
 }
+
+@media only screen and (max-width: 768px) {
+  body {
+    max-width: 768px;
+  }
+
+  header {
+    height: 275px;
+    background-size: fill;
+  }
+
+  header .content {
+    height: 275px;
+  }
+
+  header .content h1 {
+    font-size: 32px;
+    line-height: 34.5px;
+  }
+
+  main {
+    gap: 5px;
+  }
+
+  main .card .card-header {
+    width: 374px;
+  }
+
+  main .card .card-body ul li {
+    width: 374px;
+    font-size: 18px;
+  }
+
+  main .card .card-footer {
+    width: 374px;
+  }
+
+  main .card .details-card-header {
+    width: 374px;
+  }
+
+  main .card .details-card-body .item-1 {
+    width: 374px;
+  }
+
+  main .card .details-card-body .item-2 {
+    width: 374px;
+  }
+
+  main .card .details-card-body ul li {
+    width: 374px;
+  }
+
+  main .card .details-card-footer {
+    width: 374px;
+  }
+}
