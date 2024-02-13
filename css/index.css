@@ -89,9 +89,6 @@ main .card .card-body {
   position: relative;
   top: -43px;
   height: 470px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 main .card .card-body ul {
@@ -181,16 +178,12 @@ main .card .details-card-body {
   top: -43px;
 }
 
-main .card .details-card-body .card-body-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 main .card .details-card-body .item-1 {
   background-color: #c4c4c4;
   height: 273.5px;
   width: 484px;
+  display: flex;
+  flex-direction: column;
 }
 
 main .card .details-card-body .card-body-item h5 {
@@ -224,13 +217,25 @@ main .card .details-card-body .item-2 {
   background-color: #8e8e8e;
   height: 273.5px;
   width: 484px;
+  display: flex;
+  flex-direction: column;
+}
+
+main .card .details-card-body .item-2 h5 {
+  position: relative;
+  top: 5px;
+}
+
+main .card .details-card-body .item-2 button {
+  display: none;
 }
 
 /* HTML: <div class="loader"></div> */
 .loader {
-  position: absolute;
-  left: 0;
+  position: relative;
   right: 0;
+  left: 0;
+  top: 45%;
   margin-left: auto;
   margin-right: auto;
   display: none;
@@ -311,5 +316,69 @@ main .card .details-card-body .item-2 {
 
   main .card .details-card-footer {
     width: 374px;
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  main {
+    height: 630px;
+  }
+
+  header {
+    height: 225px;
+  }
+
+  header .content {
+    height: 225px;
+  }
+
+  main .card .card-header {
+    height: 60px;
+  }
+
+  main .card .card-body {
+    height: 400px;
+  }
+
+  main .card .card-body ul li {
+    height: 40px;
+  }
+
+  main .card .card-footer {
+    height: 60px;
+  }
+
+  main .card .details-card-header {
+    height: 60px;
+  }
+
+  main .card .details-card-body .item-1 {
+    height: 270px;
+    padding-top: 5px;
+  }
+
+  main .card .details-card-body .item-2 {
+    height: 330px;
+    padding-top: 5px;
+  }
+
+  main .card .details-card-body .card-body-item h5 {
+    padding-top: 5px;
+  }
+
+  main .card .details-card-body .item-2 button {
+    display: block;
+    width: 200px;
+    border: none;
+    background-color: #444444;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-top: 30px;
+    align-self: center;
+  }
+
+  .details-card {
+    display: none;
   }
 }

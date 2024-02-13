@@ -7,6 +7,8 @@ const characterLoader = document.getElementById("character-loader");
 const detailsLoader = document.getElementById("details-loader");
 const planetLoader = document.getElementById("planet-loader");
 const list = document.getElementById("character-list");
+const screenWidth = window.screen.width;
+const detailsBackBtn = document.getElementById("details-back");
 
 async function getAllCharacters(url) {
   list.innerHTML = "";
@@ -87,6 +89,7 @@ function clearDisplay() {
   planetList.innerHTML = "";
   planetName.innerHTML = "";
   name.innerHTML = "";
+  detailsBackBtn.style.display = "none";
 }
 
 function displayPlanet(data) {
@@ -100,6 +103,9 @@ function displayPlanet(data) {
   planetList.innerHTML += `<p>Climate: ${data.climate}</p>`;
   planetList.innerHTML += `<p>Gravity: ${data.gravity}</p>`;
   planetList.innerHTML += `<p>Terrain: ${data.terrain}</p>`;
+  if (screenWidth <= 440) {
+    detailsBackBtn.style.display = "block";
+  }
 }
 
 function getPageAmount(total) {
@@ -141,9 +147,32 @@ characterList.addEventListener("click", (e) => {
   if (lastClickedItem !== "") {
     lastClickedItem.style.backgroundColor = "";
   }
+  if (screenWidth <= 440) {
+    showDetailsCard();
+  }
   getDetails(url);
   lastClickedItem = target;
 });
+
+detailsBackBtn.addEventListener("click", (e) => {
+  showCharacterCard();
+});
+
+function showDetailsCard() {
+  const detailsCard = document.getElementById("details");
+  const characterCard = document.getElementById("characters");
+
+  characterCard.style.display = "none";
+  detailsCard.style.display = "block";
+}
+
+function showCharacterCard() {
+  const detailsCard = document.getElementById("details");
+  const characterCard = document.getElementById("characters");
+
+  characterCard.style.display = "block";
+  detailsCard.style.display = "none";
+}
 
 function getNextPage() {
   if (nextPageUrl !== null) {
