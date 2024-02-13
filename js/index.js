@@ -2,14 +2,22 @@ let currentPage = 1;
 let url = "https://swapi.dev/api/people";
 let nextPageUrl = null;
 let lastPageUrl = null;
+let lastClickedItem = "";
+const characterLoader = document.getElementById("character-loader");
+const detailsLoader = document.getElementById("details-loader");
+const planetLoader = document.getElementById("planet-loader");
+const list = document.getElementById("character-list");
 
 async function getAllCharacters(url) {
+  list.innerHTML = "";
   try {
+    characterLoader.style.display = "block";
     const response = await fetch(url);
     const data = await response.json();
 
     let pageNr = getPageAmount(data.count);
     displayCharacterCard(data, pageNr);
+    characterLoader.style.display = "none";
     nextPageUrl = data.next;
     lastPageUrl = data.previous;
   } catch (error) {
@@ -18,11 +26,14 @@ async function getAllCharacters(url) {
 }
 
 async function getDetails(url) {
+  clearDisplay();
   try {
+    detailsLoader.style.display = "block";
     const response = await fetch(url);
     const data = await response.json();
 
     displayDetailsCard(data);
+    detailsLoader.style.display = "none";
     getPlanet(data.homeworld);
   } catch (error) {
     console.error("Error:", error);
@@ -31,10 +42,12 @@ async function getDetails(url) {
 
 async function getPlanet(url) {
   try {
+    planetLoader.style.display = "block";
     const response = await fetch(url);
     const data = await response.json();
 
     displayPlanet(data);
+    planetLoader.style.display = "none";
   } catch (error) {
     console.error("Error:", error);
   }
@@ -55,8 +68,6 @@ function displayDetailsCard(data) {
   const name = document.getElementById("name");
   const detailsList = document.getElementById("character-details");
 
-  detailsList.innerHTML = "";
-
   name.innerHTML = data.name;
   detailsList.innerHTML += `<p>Height: ${data.height}cm</p>`;
   detailsList.innerHTML += `<p>Mass: ${data.mass}kg</p>`;
@@ -67,16 +78,25 @@ function displayDetailsCard(data) {
   detailsList.innerHTML += `<p>Gender: ${data.gender}</p>`;
 }
 
+function clearDisplay() {
+  const detailsList = document.getElementById("character-details");
+  const planetList = document.getElementById("planet-details");
+  const name = document.getElementById("name");
+  const planetName = document.getElementById("planet-name");
+  detailsList.innerHTML = "";
+  planetList.innerHTML = "";
+  planetName.innerHTML = "";
+  name.innerHTML = "";
+}
+
 function displayPlanet(data) {
   const name = document.getElementById("planet-name");
   const planetList = document.getElementById("planet-details");
 
-  planetList.innerHTML = "";
-
   name.innerHTML = data.name;
-  planetList.innerHTML += `<p>Rotation period: ${data.rotation_period}</p>`;
-  planetList.innerHTML += `<p>Orbital period: ${data.orbital_period}</p>`;
-  planetList.innerHTML += `<p>Diameter: ${data.diameter}</p>`;
+  planetList.innerHTML += `<p>Rotation period: ${data.rotation_period}h</p>`;
+  planetList.innerHTML += `<p>Orbital period: ${data.orbital_period} days</p>`;
+  planetList.innerHTML += `<p>Diameter: ${data.diameter}km</p>`;
   planetList.innerHTML += `<p>Climate: ${data.climate}</p>`;
   planetList.innerHTML += `<p>Gravity: ${data.gravity}</p>`;
   planetList.innerHTML += `<p>Terrain: ${data.terrain}</p>`;
@@ -117,7 +137,12 @@ characterList.addEventListener("click", (e) => {
     target = e.target;
   }
   let url = target.id;
+  target.style.backgroundColor = "#444444";
+  if (lastClickedItem !== "") {
+    lastClickedItem.style.backgroundColor = "";
+  }
   getDetails(url);
+  lastClickedItem = target;
 });
 
 function getNextPage() {

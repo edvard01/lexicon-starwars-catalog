@@ -84,11 +84,19 @@ main h3 {
   margin: 0px;
 }
 
+main .card .card-body {
+  background-color: #535556;
+  position: relative;
+  top: -43px;
+  height: 470px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 main .card .card-body ul {
   margin: 0;
   padding: 0;
-  position: relative;
-  top: -43px;
 }
 
 main .card .card-body ul li {
@@ -105,6 +113,15 @@ main .card .card-body ul li {
 
 main .card .card-body ul li:nth-child(odd) {
   background: #e1dede;
+}
+
+main .card .card-body ul .focused {
+  background-color: #444444;
+}
+
+main .card .card-body ul li:hover {
+  background-color: #444444;
+  cursor: pointer;
 }
 
 main .card .card-body ul li p {
@@ -135,8 +152,13 @@ main .card .card-footer p {
 
 main .card .card-footer button {
   border: none;
-  background-color: #535556;
+  background-color: #444444;
   padding: 5px;
+  border-radius: 5px;
+}
+
+main .card .card-footer button:hover {
+  cursor: pointer;
 }
 
 main .card .details-card-header {
@@ -202,4 +224,35 @@ main .card .details-card-body .item-2 {
   background-color: #8e8e8e;
   height: 273.5px;
   width: 484px;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: none;
+  width: 200px;
+  font-weight: bold;
+  font-family: monospace;
+  white-space: pre;
+  font-size: 30px;
+  line-height: 1.2em;
+  height: 1.2em;
+  overflow: hidden;
+  color: #ffd600;
+}
+.loader:before {
+  content: "Loading...\A⌰oading...\A⌰⍜ading...\A⌰⍜⏃ding...\A⌰⍜⏃⎅ing...\A⌰⍜⏃⎅⟟ng...\A⌰⍜⏃⎅⟟⋏g...\A⌰⍜⏃⎅⟟⋏☌...\A⌰⍜⏃⎅⟟⋏☌⟒..\A⌰⍜⏃⎅⟟⋏☌⟒⏁.\A⌰⍜⏃⎅⟟⋏☌⟒⏁⋔";
+  white-space: pre;
+  display: inline-block;
+  animation: l39 1s infinite steps(11) alternate;
+}
+
+@keyframes l39 {
+  100% {
+    transform: translateY(-100%);
+  }
 }
